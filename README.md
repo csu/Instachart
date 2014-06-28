@@ -1,4 +1,4 @@
-FlaskSkeleton
+Instachart
 =============
 
-A skeleton to quickly begin development with Flask, MongoDB, Bootstrap, and Heroku.
+Quickly draw and share charts from data.
