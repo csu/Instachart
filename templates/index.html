@@ -3,62 +3,36 @@
 {% block header_scripts %}
 {% endblock %}
 {% block footer_scripts %}
-<script>
-    $( document ).ready(function() {
-        // Initialize appendGrid
-        $('#tblAppendGrid').appendGrid({
-            caption: 'My CD Collections',
-            initRows: 1,
-            columns: [
-                    { name: 'Name', display: 'Name', type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px' }, ctrlClass: 'album' },
-                    { name: 'Value', display: 'Value', type: 'text', ctrlAttr: { maxlength: 10 }, ctrlCss: { width: '50px', 'text-align': 'right' }, value: 0, ctrlClass: 'value' }
-                ],
-            initData: [
-                    { 'Name': 'Test', 'Value': 28 },
-                    { 'Name': 'Hello', 'Value': 53 },
-                    { 'Name': 'World', 'Value': 16 },
-                    { 'Name': 'Foo', 'Value': 4 },
-                    { 'Name': 'Bar', 'Value': 34 }
-                ]
-        });
-        // Better button layout
-        $('#btnSubmit').button();
-        // Add custom album and price rule
-        $.validator.addClassRules('name', {
-            required: true,
-            minlength: 2
-        });
-        $.validator.addClassRules('value', {
-            required: true,
-            number: true,
-            min: 0
-        });
-        // Initialize validation plugin
-        $(document.forms[0]).validate({
-            errorLabelContainer: '#ulError',
-            wrapper: 'li',
-            submitHandler: function () {
-                // For demo purpose only!
-                alert('Submitted!');
-            }
-        });
-    });
-</script>
 {% endblock %}
 {% block header %}{{ header|safe }}{% endblock %}
 {% block body %}
     {{ super() }}
-    <table id="tblAppendGrid">
-    </table>
-    <br>
-    <button type="submit" id="btnSubmit">
-        Submit</button>
-    <br>
-    <br>
-    <div style="font-weight: bold;">
-        Error Placement:</div>
-    <div id="divErrorPlacement" style="min-height: 100px; border: 1px dotted #0000ff;">
-        <ul id="ulError">
-        </ul>
-    </div>
+    <div id="dataTable"></div>
+    <p>
+        <button name="dump" data-dump="#dataTable" title="Prints current data source to Firebug/Chrome Dev Tools">
+          Dump data to console
+        </button>
+    </p>
+    <script>
+      var initial = [];
+      $("#dataTable").handsontable({
+          data: initial,
+          minSpareRows: 1,
+          contextMenu: false,
+          colHeaders: ['Name', 'Value'],
+          columns: [
+            {data: 'name'},
+            {data: 'value', type: 'numeric'}
+          ]
+      });
+      $(function() {
+          function bindDumpButton() {
+            $('body').on('click', 'button[name=dump]', function () {
+              var dump = $(this).data('dump');
+              var $container = $(dump);
+              console.log('data of ' + dump, $container.handsontable('getData'));
+            });
+          }
+      });
+    </script>
 {% endblock %}
