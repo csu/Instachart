@@ -9,30 +9,22 @@
     {{ super() }}
     <div id="dataTable"></div>
     <p>
-        <button name="dump" data-dump="#dataTable" title="Prints current data source to Firebug/Chrome Dev Tools">
-          Dump data to console
+        <button name="dump">
+          Submit
         </button>
     </p>
     <script>
-      var initial = [];
-      $("#dataTable").handsontable({
-          data: initial,
-          minSpareRows: 1,
-          contextMenu: false,
-          colHeaders: ['Name', 'Value'],
-          columns: [
-            {data: 'name'},
-            {data: 'value', type: 'numeric'}
-          ]
-      });
-      $(function() {
-          function bindDumpButton() {
-            $('body').on('click', 'button[name=dump]', function () {
-              var dump = $(this).data('dump');
-              var $container = $(dump);
-              console.log('data of ' + dump, $container.handsontable('getData'));
-            });
-          }
-      });
+          $("#dataTable").handsontable({
+              colHeaders: ['Name', 'Value'],
+              minSpareRows: 1,
+              columns: [
+                {data: 'name'},
+                {data: 'value', type: 'numeric'}
+              ]
+          });
+
+        $('body').on('click', 'button[name=dump]', function () {
+           $("#dataTable").handsontable('getData');
+        });
     </script>
 {% endblock %}
