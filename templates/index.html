@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ title|safe }}{% endblock %}
+{% block header_scripts %}
+{% endblock %}
+{% block footer_scripts %}
+<script>
+    $( document ).ready(function() {
+        // js goes here!
+    });
+</script>
+{% endblock %}
+{% block header %}{{ header|safe }}{% endblock %}
+{% block body %}
+    {{ super() }}
+    {{ body|safe }}
+{% endblock %}
