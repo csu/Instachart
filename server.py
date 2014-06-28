@@ -10,8 +10,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', header='Flask Skeleton', title='Flask Skeleton', body='''
-        <p>Some content can go here!</p>
-        ''')
+    return render_template('index.html', header='Flask Skeleton', title='Flask Skeleton')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=33507)
