@@ -8,6 +8,8 @@ import json
 import StringIO
 import csv
 
+import sys
+
 app = Flask(__name__)
 
 on_heroku = False
