@@ -32,6 +32,32 @@ def index():
 def throw_parse_error():
     return render_template('index.html', header='Instachart', title='Instachart', body_message="Data failed to parse. Please try again and follow the format described.")
 
+# @app.route('/generate/pie', methods=['POST'])
+# def generate_pie():
+#     try:
+#         chart_id = None
+#         f = StringIO.StringIO(request.form['data'])
+#         reader = csv.reader(f, delimiter=',')
+#         data = []
+#         for row in reader:
+#             try:
+#                 data.append({
+#                     'label': str(row[0]),
+#                     'value': float(str(row[1]).strip())
+#                 })
+#             except:
+#                 print "Unexpected error:", sys.exc_info()[0]
+#                 return throw_parse_error()
+#         chart_id = str(collection.insert({'data': data}))
+#         if chart_id is not None:
+#             return render_template('redirect.html', redirect_location="/chart/" + chart_id)
+#         else:
+#             print "Unexpected error:", sys.exc_info()[0]
+#             return throw_parse_error()
+#     except:
+#         print "Unexpected error:", sys.exc_info()[0]
+#         return throw_parse_error()
+
 @app.route('/generate/pie', methods=['POST'])
 def generate_pie():
     try:
@@ -40,23 +66,12 @@ def generate_pie():
         reader = csv.reader(f, delimiter=',')
         data = []
         for row in reader:
-            try:
-                data.append({
-                    'label': str(row[0]),
-                    'value': float(str(row[1]).strip())
-                })
-            except:
-                print "Unexpected error:", sys.exc_info()[0]
-                return throw_parse_error()
+            data.append({
+                'label': str(row[0]),
+                'value': float(str(row[1]).strip())
+            })
         chart_id = str(collection.insert({'data': data}))
-        if chart_id is not None:
-            return render_template('redirect.html', redirect_location="/chart/" + chart_id)
-        else:
-            print "Unexpected error:", sys.exc_info()[0]
-            return throw_parse_error()
-    except:
-        print "Unexpected error:", sys.exc_info()[0]
-        return throw_parse_error()
+        return render_template('redirect.html', redirect_location="/chart/" + chart_id)
 
 @app.route('/chart/<id>', methods=['GET'])
 def view_chart(id):
