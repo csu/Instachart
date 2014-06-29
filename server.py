@@ -31,44 +31,31 @@ def index():
 
 def throw_parse_error():
     print "Unexpected error:", sys.exc_info()[0]
+    sys.stdout.flush()
     return render_template('index.html', header='Instachart', title='Instachart', body_message="Data failed to parse. Please try again and follow the format described.")
-
-# @app.route('/generate/pie', methods=['POST'])
-# def generate_pie():
-#     try:
-#         chart_id = None
-#         f = StringIO.StringIO(request.form['data'])
-#         reader = csv.reader(f, delimiter=',')
-#         data = []
-#         for row in reader:
-#             try:
-#                 data.append({
-#                     'label': str(row[0]),
-#                     'value': float(str(row[1]).strip())
-#                 })
-#             except:
-#                 return throw_parse_error()
-#         chart_id = str(collection.insert({'data': data}))
-#         if chart_id is not None:
-#             return render_template('redirect.html', redirect_location="/chart/" + chart_id)
-#         else:
-#             return throw_parse_error()
-#     except:
-#         return throw_parse_error()
 
 @app.route('/generate/pie', methods=['POST'])
 def generate_pie():
-    chart_id = None
-    f = StringIO.StringIO(request.form['data'])
-    reader = csv.reader(f, delimiter=',')
-    data = []
-    for row in reader:
-        data.append({
-            'label': str(row[0]),
-            'value': float(row[1])
-        })
-    chart_id = str(collection.insert({'data': data}))
-    return render_template('redirect.html', redirect_location="/chart/" + chart_id)
+    try:
+        chart_id = None
+        f = StringIO.StringIO(request.form['data'])
+        reader = csv.reader(f, delimiter=',')
+        data = []
+        for row in reader:
+            try:
+                data.append({
+                    'label': str(row[0]),
+                    'value': float(str(row[1]).strip())
+                })
+            except:
+                return throw_parse_error()
+        chart_id = str(collection.insert({'data': data}))
+        if chart_id is not None:
+            return render_template('redirect.html', redirect_location="/chart/" + chart_id)
+        else:
+            return throw_parse_error()
+    except:
+        return throw_parse_error()
 
 @app.route('/chart/<id>', methods=['GET'])
 def view_chart(id):
