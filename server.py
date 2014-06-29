@@ -15,12 +15,13 @@ if 'MONGOLAB_URI' in os.environ:
   on_heroku = True
 
 if on_heroku:
-    client = MongoClient(os.environ['MONGOLAB_URI'])
+    db = MongoClient(os.environ['MONGOLAB_URI'])
+    collection = db.data
 else:
     client = MongoClient('mongodb://localhost:27017/')
+    db = client.instachart
+    collection = db.data
 
-db = client.instachart
-collection = db.data
 
 @app.route('/', methods=['GET'])
 def index():
