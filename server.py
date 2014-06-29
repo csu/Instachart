@@ -13,8 +13,9 @@ if on_heroku:
     client = MongoClient(os.environ['MONGOLAB_URI'])
 else:
     client = MongoClient('mongodb://localhost:27017/')
-db = client.DATABASE_NAME
-ollection = db.COLLECTION_NAME
+
+db = client.instachart
+collection = db.data
 
 @app.route('/', methods=['GET'])
 def index():
