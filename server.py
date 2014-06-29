@@ -17,7 +17,8 @@ if 'MONGOLAB_URI' in os.environ:
   on_heroku = True
 
 if on_heroku:
-    db = MongoClient(os.environ['MONGOLAB_URI'])
+    client = MongoClient(os.environ['MONGOLAB_URI'])
+    db = client.get_default_database()
     collection = db.data
 else:
     client = MongoClient('mongodb://localhost:27017/')
