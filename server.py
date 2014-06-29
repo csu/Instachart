@@ -44,13 +44,16 @@ def generate_pie():
                     'value': float(row[1].strip())
                 })
             except:
+                print "Unexpected error:", sys.exc_info()[0]
                 return throw_parse_error()
         chart_id = str(collection.insert({'data': data}))
         if chart_id is not None:
             return render_template('redirect.html', redirect_location="/chart/" + chart_id)
         else:
+            print "Unexpected error:", sys.exc_info()[0]
             return throw_parse_error()
     except:
+        print "Unexpected error:", sys.exc_info()[0]
         return throw_parse_error()
 
 @app.route('/chart/<id>', methods=['GET'])
