@@ -43,7 +43,7 @@ def generate_pie():
             try:
                 data.append({
                     'label': str(row[0]),
-                    'value': float(row[1].strip())
+                    'value': float(str(row[1]).strip())
                 })
             except:
                 print "Unexpected error:", sys.exc_info()[0]
