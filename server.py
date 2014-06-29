@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, request
 from pymongo import MongoClient
 import os
 from bson.objectid import ObjectId
@@ -30,6 +30,7 @@ def index():
     return render_template('index.html', header='Instachart', title='Instachart')
 
 def throw_parse_error():
+    print sys.exc_info()
     print "Unexpected error:", sys.exc_info()[0]
     sys.stdout.flush()
     return render_template('index.html', header='Instachart', title='Instachart', body_message="Data failed to parse. Please try again and follow the format described.")
