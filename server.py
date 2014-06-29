@@ -65,5 +65,4 @@ def view_chart(id):
     return render_template('pie_chart.html', chart_data=json.dumps(chart_data), chart_id=id)
 
 if __name__ == '__main__':
-    app.jinja_env.globals.update(base_url='http://instachart.herokuapp.com')
     app.run(debug=True)
