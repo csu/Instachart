@@ -65,7 +65,7 @@ def generate_pie():
     for row in reader:
         data.append({
             'label': str(row[0]),
-            'value': float(str(row[1]).strip())
+            'value': float(row[1])
         })
     chart_id = str(collection.insert({'data': data}))
     return render_template('redirect.html', redirect_location="/chart/" + chart_id)
