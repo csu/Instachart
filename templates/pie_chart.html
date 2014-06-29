@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Chart{% endblock %}
+{% block header_scripts %}
+{% endblock %}
+{% block footer_scripts %}
+    <script src="/static/js/d3.min.js"></script>
+    <script src="/static/js/d3pie.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            pie_data = JSON.parse({{ chart_data|tojson|safe }});
+            var pie = new d3pie("pieChart", {
+                data: {
+                    content: pie_data
+                },
+                size: {
+                    canvasHeight: 500,
+                    canvasWidth: 800,
+                    pieInnerRadius: 0,
+                    pieOuterRadius: null
+                },
+                labels: {
+                    inner: {
+                        format: 'value'
+                    },
+                    mainLabel: {
+                        color: "#000000",
+                        font: "arial",
+                        fontSize: 15
+                    },
+                    percentage: {
+                        color: "#ffffff",
+                        font: "arial",
+                        fontSize: 12,
+                        decimalPlaces: 0
+                    },
+                    value: {
+                        color: "#ffffff",
+                        font: "arial",
+                        fontSize: 13
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% block header %}{{ page_title|safe }}{% endblock %}
+{% block body %}
+    {{ super() }}
+    <div id="pieChart"></div>
+    <p>Use this link to share this chart:<br />
+        <a href="{{ base_url|safe }}/chart/{{ chart_id|safe }}">{{ base_url|safe }}/chart/{{ chart_id|safe }}</a></p>
+{% endblock %}

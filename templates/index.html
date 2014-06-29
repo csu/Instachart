@@ -7,9 +7,18 @@
 {% block header %}{{ header|safe }}{% endblock %}
 {% block body %}
     {{ super() }}
+        {% if body_message %}{{ body_message|safe }}{% endif %}
+    <form name="input" action="/generate/pie" method="post">
+        Enter data in the format of "name, value" with a new entry on each row.<br /><br />
+        <textarea name="data" id="data" rows="10" cols="80">Example Entry,15
+Another One,10</textarea>
+<br />
+        <input type="submit" value="Submit">
+    </form>
+    <!--
     <div id="dataTable"></div>
     <p>
-        <button name="dump">
+        <button id="target">
           Submit
         </button>
     </p>
@@ -23,8 +32,9 @@
               ]
           });
 
-        $('body').on('click', 'button[name=dump]', function () {
-           $("#dataTable").handsontable('getData');
+        $( "#target" ).click(function() {
+           console.log($("#dataTable").handsontable('getData'));
         });
     </script>
+    -->
 {% endblock %}
