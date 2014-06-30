@@ -7,7 +7,7 @@
     <script src="/static/js/d3pie.min.js"></script>
     <script>
         $( document ).ready(function() {
-            pie_data = JSON.parse({{ chart_data|tojson|safe }});
+            pie_data = JSON.parse({{ chart_data|tojson }});
             var pie = new d3pie("pieChart", {
                 data: {
                     content: pie_data
@@ -43,10 +43,10 @@
         });
     </script>
 {% endblock %}
-{% block header %}{{ page_title|safe }}{% endblock %}
+{% block header %}{{ page_title }}{% endblock %}
 {% block body %}
     {{ super() }}
     <div id="pieChart"></div>
     <p>Use this link to share this chart:<br />
-        <a href="http://instachart.herokuapp.com/chart/{{ chart_id|safe }}">http://instachart.herokuapp.com/chart/{{ chart_id|safe }}</a></p>
+        <a href="http://instachart.herokuapp.com/chart/{{ chart_id|safe }}">http://instachart.herokuapp.com/chart/{{ chart_id }}</a></p>
 {% endblock %}
