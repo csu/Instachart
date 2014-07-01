@@ -46,6 +46,7 @@
 {% block header %}{{ page_title }}{% endblock %}
 {% block body %}
     {{ super() }}
+    <h2>{{ chart_title }}</h2>
     <div id="pieChart"></div>
     <p>Use this link to share this chart:<br />
         <a href="http://instachart.herokuapp.com/chart/{{ chart_id|safe }}">http://instachart.herokuapp.com/chart/{{ chart_id }}</a></p>

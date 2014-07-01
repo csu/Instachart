@@ -51,7 +51,7 @@ def generate_pie():
                 })
             except:
                 return throw_parse_error()
-        chart_id = str(collection.insert({'data': data}))
+        chart_id = str(collection.insert({'title': str(request.form['title']), 'data': data}))
         if chart_id is not None:
             return render_template('redirect.html', redirect_location="/chart/" + chart_id)
         else:
@@ -61,8 +61,10 @@ def generate_pie():
 
 @app.route('/chart/<id>', methods=['GET'])
 def view_chart(id):
-    chart_data = collection.find_one(ObjectId(id))['data']
-    return render_template('pie_chart.html', chart_data=json.dumps(chart_data), chart_id=id)
+    chart = collection.find_one(ObjectId(id))
+    chart_data = chart['data']
+    chart_title = chart['title']
+    return render_template('pie_chart.html', chart_data=json.dumps(chart_data), chart_id=id, chart_title=chart_title)
 
 if __name__ == '__main__':
     app.run(debug=True)
