@@ -10,7 +10,7 @@
         {% if body_message %}{{ body_message|safe }}{% endif %}
     <form name="input" action="/generate/pie" method="post">
         Enter data in the format of "name, value" with a new entry on each row.<br /><br /><form>
-        Chart title: <input type="text" name="title"><br /><br />
+        Chart title (optional):&nbsp;<input type="text" name="title"><br /><br />
         <textarea name="data" id="data" rows="10" cols="80">Example Entry,15
 Another One,10</textarea>
 <br />
