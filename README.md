@@ -5,7 +5,7 @@ Quickly draw and share charts from data.
 
 Try it at:
 
-* http://instachart.christophersu.su
+* http://instachart.christopher.su
 * (alternate) http://instachart.herokuapp.com
 
 ### Todo
